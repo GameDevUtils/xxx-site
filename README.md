@@ -1,2 +1,3 @@
 # site
-The bits and pieces that make up the site at http://gamedevutils.com/.
+
+The landing page, navigation, and standard look-and-feel for apps in the http://gamedevutils.com/ suite of tools.
