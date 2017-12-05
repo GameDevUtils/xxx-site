@@ -10,7 +10,7 @@ jobs:
         - master
     steps:
       - checkout
-      - run: cd $CIRCLE_WORKING_DIRECTORY
+      # - run: cd $CIRCLE_WORKING_DIRECTORY
       - run: cd docs/
       - run: bundle exec jekyll build
       - run: bundle exec htmlproofer ./_site --only-4xx --check-favicon --check-html
