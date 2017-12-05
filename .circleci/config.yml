@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4
+      - image: circleci/ruby:2.4.1-node
     environment:
       - NOKOGIRI_USE_SYSTEM_LIBRARIES: true
     branches:
@@ -10,7 +10,33 @@ jobs:
         - master
     steps:
       - checkout
-      # - run: cd $CIRCLE_WORKING_DIRECTORY
-      - run: cd docs/
-      - run: bundle exec jekyll build
-      - run: bundle exec htmlproofer ./_site --only-4xx --check-favicon --check-html
+      - run:
+          name: ensure cmake is installed (assumes debian image)
+          command: |
+            cat /etc/issue
+            sudo apt-get install cmake
+      - run: # https://github.com/CSSLint/csslint/wiki/Command-line-interface
+          name: ensure csslint is installed
+          command: |
+            sudo npm install -g csslint
+            csslint --version
+      - run:
+          name: ensure commonmarker is installed
+          command: |
+            cd docs/
+            gem install commonmarker -v '0.17.6'
+      - run: # https://github.com/github/pages-gem ][ https://github.com/gjtorikian/html-proofer
+          name: ensure Jekyll and html-proofer is installed
+          command: |
+            cd docs/
+            bundle install
+      - run:
+          name: build static pages
+          command: |
+            cd docs/
+            bundle exec jekyll build
+      - run:
+          name: validate static pages
+          command: |
+            cd docs/
+            bundle exec htmlproofer ./_site --only-4xx --check-favicon --check-html
