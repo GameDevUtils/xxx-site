@@ -13,7 +13,7 @@ module.exports = {
     // "extends": "eslint:recommended",
     // "extends": [ "eslint:recommended", "plugin:react/recommended" ],
 
-    "extends": "eslint:recommended",
+    "extends": [ "eslint:recommended", "plugin:react/recommended" ],
 
     "rules": {
         // enable additional rules

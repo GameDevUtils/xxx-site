@@ -7,9 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "npm test",
-    "test-ci": "circleci build",
-    "lint-md": "for f in $(find \"$PWD\" -not -path \"*/node_modules/*\" | grep '\\S\\.md$'); do ./node_modules/.bin/markdownlint \"$f\"; done && for f in $(find \"$PWD\" -not -path \"*/node_modules/*\" | grep '\\S\\.markdown$'); do ./node_modules/.bin/markdownlint \"$f\"; done && echo Success! || echo \"ERROR: Exited with code $?\"",
+    "test": "circleci build",
+    "lint-md": "SUM=0 && for f in $(find . -name '*.md' -not -path './node_modules/*' 2> /dev/null && find . -name '*.markdown' -not -path './node_modules/*' 2> /dev/null); do echo \"Validating $f...\" && ./node_modules/.bin/markdownlint \"$f\" && : || FOO=$? && SUM=$(( SUM + FOO )); done && if [ \"$SUM\" -gt 0 ]; then echo \"There were $SUM errors!\" && echo \"ERROR: Exited with code 1\"; else echo \"Success!\"; fi",
     "lint-html": "echo \"Validating HTML...\" && cd docs/ && htmlproofer ./_site --only-4xx --check-favicon --check-html && echo Success! || echo \"ERROR: Exited with code $?\"",
     "lint-css": "echo \"Validating CSS...\" && echo Success! || echo \"ERROR: Exited with code $?\"",
     "lint-js": "echo \"Validating JS and JSX...\" && ./node_modules/.bin/eslint --env browser docs/ && echo Success! || echo \"ERROR: Exited with code $?\""
@@ -28,6 +27,7 @@
     "csslint": "^1.0.5",
     "eslint": "^4.12.1",
     "eslint-config-google": "^0.9.1",
+    "eslint-plugin-react": "^7.5.1",
     "markdownlint-cli": "^0.5.0"
   }
 }

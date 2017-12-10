@@ -79,7 +79,7 @@ jobs:
             csslint docs/_site
 
       - run:
-          name: validate js and es
+          name: validate js, es, and jsx
           command: |
             eslint --env browser docs/
 
