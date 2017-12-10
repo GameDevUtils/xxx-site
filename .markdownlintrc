@@ -1,0 +1,7 @@
+{
+  "comment": "All rules",
+  "default": true,
+
+  "MD013": false,
+  "MD034": false
+}

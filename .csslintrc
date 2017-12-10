@@ -1,0 +1,40 @@
+{
+    "known-properties": false, // Properties should be known (listed in CSS3 specification) or be a vendor-prefixed property.
+    "adjoining-classes": false, // Don't use adjoining classes.
+    "order-alphabetical": false, // Assure properties are in alphabetical order
+    "box-sizing": false, // The box-sizing properties isn't supported in IE6 and IE7.
+    "box-model": false, // Don't use width or height when using padding or border.
+    "outline-none": false, // Use of outline: none or outline: 0 should be limited to :focus rules.
+    "display-property-grouping": false, // Certain properties shouldn't be used with certain display property values.
+    "bulletproof-font-face": false, // Use the bulletproof @font-face syntax to avoid 404's in old IE (http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax).
+    "compatible-vendor-prefixes": false, // Include all compatible vendor prefixes to reach a wider range of users.
+    "qualified-headings": false, // Headings should not be qualified (namespaced).
+    "errors": false, // This rule looks for recoverable syntax errors.
+    "duplicate-background-images": false, // Every background-image should be unique. Use a common class for e.g. sprites.
+    "duplicate-properties": false, // Duplicate properties must appear one after the other.
+    "empty-rules": false, // Rules without any properties specified should be removed.
+    "selector-max-approaching": false, // Will warn when selector count is >= 3800 selectors.
+    "gradients": false, // When using a vendor-prefixed gradient, make sure to use them all.
+    "fallback-colors": false, // For older browsers that don't support RGBA, HSL, or HSLA, provide a fallback color.
+    "floats": false, // This rule tests if the float property is used too many times
+    "font-faces": false, // Too many different web fonts in the same stylesheet.
+    "font-sizes": false, // Checks the number of font-size declarations.
+    "shorthand": false, // Use shorthand properties where possible.
+    "important": false, // Be careful when using !important declaration
+    "import": false, // Don't use @import, use <link> instead.
+    "import-ie-limit": false, // IE6-9 supports up to 31 @import per stylesheet
+    "ids": false, // Selectors should not contain IDs.
+    "text-indent": false, // Checks for text indent less than -99px
+    "rules-count": false, // Track how many rules there are.
+    "regex-selectors": false, // Selectors that look like regular expressions are slow and should be avoided.
+    "overqualified-elements": false, // Don't use classes or IDs with elements (a.foo or a#foo).
+    "selector-max": false, // Will error when selector count is > 4095.
+    "selector-newline": false, // New-line characters in selectors are usually a forgotten comma and not a descendant combinator.
+    "star-property-hack": false, // Checks for the star property hack (targets IE6/7)
+    "underscore-property-hack": false, // Checks for the underscore property hack (targets IE6)
+    "unique-headings": false, // Headings should be defined only once.
+    "universal-selector": false, // The universal selector (*) is known to be slow.
+    "unqualified-attributes": false, // Unqualified attribute selectors are known to be slow.
+    "vendor-prefix": false, // When using a vendor-prefixed property, make sure to include the standard one.
+    "zero-units": false // You don't need to specify units when a value is 0.
+}

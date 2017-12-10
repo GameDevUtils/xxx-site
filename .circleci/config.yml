@@ -10,44 +10,81 @@ jobs:
         - master
     steps:
       - checkout
+      
+# --- Install Tools ---
+
       - run:
           name: ensure cmake is installed (assumes debian image)
           command: |
             cat /etc/issue
             sudo apt-get install cmake
-#      - run:
-#          name: ensure csslint is installed
-#          command: |
-#            sudo npm install -g csslint
-#            csslint --version
-      - run:
+
+      - run: # https://github.com/igorshubovych/markdownlint-cli
+          name: ensure markdownlint is installed
+          command: |
+            sudo npm install -g markdownlint-cli
+            markdownlint --version
+
+      - run: # http://csslint.net/
+          name: ensure csslint is installed
+          command: |
+            sudo npm install -g csslint
+            csslint --version
+
+      - run: # https://eslint.org/
+          name: ensure eslint is installed
+          command: |
+            sudo npm install -g eslint
+            eslint --version
+
+      - run: # dependency for gem install bundler
           name: ensure commonmarker is installed
           command: |
             cd docs/
             gem install commonmarker -v '0.17.6'
+
       - run:
           name: ensure bundler is up-to-date
           command: gem install bundler
+
       - run: # https://github.com/github/pages-gem ][ https://github.com/gjtorikian/html-proofer
           name: ensure Jekyll and html-proofer is installed
           command: |
             cd docs/
             bundle install
+            
+# --- Run Tests ---
+
+      - run:
+          name: validate markdown
+          command: |
+            markdownlint --version
+            for f in $(find "$PWD" -not -path "*/node_modules/*" | grep '\S\.md$'); do ./node_modules/.bin/markdownlint "$f"; done
+            for f in $(find "$PWD" -not -path "*/node_modules/*" | grep '\S\.markdown$'); do ./node_modules/.bin/markdownlint "$f"; done
+
       - run:
           name: build static pages
           command: |
             cd docs/
             bundle exec jekyll build
-      - run:
-          name: validate static pages
-          command: |
-            cd docs/
-            bundle exec htmlproofer ./_site --only-4xx --check-favicon --check-html
 
-      # TODO - ADD to CI (!): css linter [https://github.com/CSSLint/csslint/wiki/Command-line-interface]
-      # TODO - ADD to CI (!): js/es linter [ ??? ]
-      # TODO - ADD to CI (!): jsx linter [ ??? ]
+      - run:
+          name: validate static html pages
+          command: |
+            bundle exec htmlproofer ./docs/_site --only-4xx --check-favicon --check-html
+
+      - run:
+          name: validate css
+          command: |
+            csslint docs/_site
+
+      - run:
+          name: validate js and es
+          command: |
+            eslint --env browser docs/
+
       # TODO - ADD to CI (?): accessibility checker [https://github.com/pa11y/pa11y-ci]
       # TODO - ADD to BUILD (!): coverage (as npm run script / as CI)
       # TODO - ADD to BUILD (?): css reset (as npm run script) [https://github.com/necolas/normalize.css]
       # TODO - ADD to BUILD (?): prettifier (as npm run script) [ ??? ]
+

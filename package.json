@@ -1,0 +1,33 @@
+{
+  "name": "site-ci-tools",
+  "version": "0.1.0",
+  "description": "Installing NPM tools for CI tasks, reproduced locally.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "npm test",
+    "test-ci": "circleci build",
+    "lint-md": "for f in $(find \"$PWD\" -not -path \"*/node_modules/*\" | grep '\\S\\.md$'); do ./node_modules/.bin/markdownlint \"$f\"; done && for f in $(find \"$PWD\" -not -path \"*/node_modules/*\" | grep '\\S\\.markdown$'); do ./node_modules/.bin/markdownlint \"$f\"; done && echo Success! || echo \"ERROR: Exited with code $?\"",
+    "lint-html": "echo \"Validating HTML...\" && cd docs/ && htmlproofer ./_site --only-4xx --check-favicon --check-html && echo Success! || echo \"ERROR: Exited with code $?\"",
+    "lint-css": "echo \"Validating CSS...\" && echo Success! || echo \"ERROR: Exited with code $?\"",
+    "lint-js": "echo \"Validating JS and JSX...\" && ./node_modules/.bin/eslint --env browser docs/ && echo Success! || echo \"ERROR: Exited with code $?\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GameDevUtils/site.git"
+  },
+  "author": "Joseph Hall (@groundh0g)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GameDevUtils/site/issues"
+  },
+  "homepage": "http://GameDevUtils.com",
+  "devDependencies": {
+    "csslint": "^1.0.5",
+    "eslint": "^4.12.1",
+    "eslint-config-google": "^0.9.1",
+    "markdownlint-cli": "^0.5.0"
+  }
+}
