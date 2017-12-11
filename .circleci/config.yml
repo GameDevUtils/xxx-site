@@ -16,26 +16,33 @@ jobs:
       - run:
           name: ensure cmake is installed (assumes debian image)
           command: |
-            cat /etc/issue
             sudo apt-get install cmake
 
       - run: # https://github.com/igorshubovych/markdownlint-cli
           name: ensure markdownlint is installed
           command: |
-            sudo npm install -g markdownlint-cli
+            sudo npm install -g markdownlint-cli@0.5.0
             markdownlint --version
 
-      - run: # http://csslint.net/
-          name: ensure csslint is installed
+      - run: # https://github.com/DealerDirect/liquid-linter-cli
+          name: ensure liquid-linter is installed
           command: |
-            sudo npm install -g csslint
-            csslint --version
+            sudo npm install -g liquid-linter-cli@0.3.0
+            liquid-linter --version
+
+      - run: # http://stylelint.io/
+          name: ensure stylelint is installed
+          command: |
+            sudo npm install -g stylelint@8.3.1
+            stylelint --version
 
       - run: # https://eslint.org/
           name: ensure eslint is installed
           command: |
-            sudo npm install -g eslint
+            sudo npm install -g eslint@4.12.1
             eslint --version
+            sudo npm install -g eslint-plugin-react@7.5.1
+            sudo npm install -g eslint-config-google@0.9.1
 
       - run: # dependency for gem install bundler
           name: ensure commonmarker is installed
@@ -58,9 +65,18 @@ jobs:
       - run:
           name: validate markdown
           command: |
-            markdownlint --version
             for f in $(find "$PWD" -not -path "*/node_modules/*" | grep '\S\.md$'); do ./node_modules/.bin/markdownlint "$f"; done
             for f in $(find "$PWD" -not -path "*/node_modules/*" | grep '\S\.markdown$'); do ./node_modules/.bin/markdownlint "$f"; done
+
+      - run:
+          name: validate liquid template
+          command: |
+            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.htm$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
+            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.html'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
+            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.lqd$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
+            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.liquid$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
+            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.md$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
+            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.markdown$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
 
       - run:
           name: build static pages
@@ -76,7 +92,7 @@ jobs:
       - run:
           name: validate css
           command: |
-            csslint docs/_site
+            stylelint docs/_site/**/*.css
 
       - run:
           name: validate js, es, and jsx

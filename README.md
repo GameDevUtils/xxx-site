@@ -27,12 +27,15 @@ Yes, the result of the `site\` project build and deploy is just a static blog. I
 So, what do the tests look for?
 
 * **Valid Markdown:** [Markdown Lint Tool](https://github.com/markdownlint/markdownlint#markdown-lint-tool) is used to check a long list of [formatting violations](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#rules).
+* **Valid Liquid:** [Liquid Linter](https://github.com/tomheller/liquid-linter) scans script files for errors with [Liquid tags](https://help.shopify.com/themes/liquid/tags). TODO: Add linting for my [custom tags](https://dealerdirect.github.io/liquid-linter-cli/#custom-blocks-and-tags).
 * **Valid HTML:** [HTMLProofer](https://github.com/gjtorikian/html-proofer#htmlproofer) is used to check a variety of [common issues](https://github.com/gjtorikian/html-proofer#whats-tested).
-* **Valid CSS:** [CSS Lint](http://csslint.net/) provides many checks against common [problems with style sheets](https://github.com/CSSLint/csslint/wiki/Command-line-interface#--list-rules).
+* **Valid CSS:** [StyleLint](https://stylelint.io/) provides many checks against common [problems with style sheets](https://stylelint.io/user-guide/rules/).
 * **Valid JS/JSX:** [ESLint](https://eslint.org/) scans the JavaScript and JSX for [common script violations](https://eslint.org/docs/rules/).
-* **Valid Liquid:** ?? TODO
-* **Valid Bootstrap:** ?? TODO
-* **Accessibility:** ?? TODO
+
+The following linters are planned:
+
+* **Valid Bootstrap:** TODO: [BootLint](https://github.com/twbs/bootlint)
+* **Accessibility:** TODO: [Pa11y](https://github.com/pa11y/pa11y-ci)
 
 ## Continuous Integration
 
@@ -73,13 +76,14 @@ The lint scripts assume that you have done the following:
 To focus on a particular issue, you can run the following individual lint scripts to view the errors for that component:
 
 * `npm run lint-md` - validates the markdown for the project
+* `npm run lint-liquid` - validates the Liquid scripts for the project
 * `npm run lint-css` - validates the CSS for the project
 * `npm run lint-js` - validates the JS and JSX for the project
 * `npm run lint-html` - validates the HTML for the project
 
-> **Note:** There are two quirks with the markdown linter ...
+> **Note:** There are two quirks with the markdown and liquid linters ...
 >
-> 1. It doesn't care if the site has been built (with 'jekyll build') or not. The markdown linter parses and evaluates the raw site files.
-> 1. The CLI for markdownlint wasn't as [glob](https://www.npmjs.com/package/glob)-friendly as the other tools, so the lint script makes two passes - one for `*.md` files and one for `*.markdown` files. The only downside to that is that you'll have to fix the errors in your ".md" files before you even see the errors in the ".markdown" files.
+> 1. They don't care if the site has been built (with 'jekyll build') or not. The linters parse and evaluate the raw site files.
+> 1. The CLI for each wasn't as [glob](https://www.npmjs.com/package/glob)-friendly as the other tools, so the lint scripts make multiple passes - for example, one pass for `*.md` files and one pass for `*.markdown` files. The only downside to that is that you'll have to fix the errors in your first set of files before you even see the errors in the next set of files.
 >
-> *I plan to merge the two lists of markdown files so that the two-pass evaluation isn't needed any more, but I have bigger fish to fry these days.*
+> *I plan to merge the multiple lists of files so that the multi-pass evaluation isn't needed any more, but I have bigger fish to fry these days.*
