@@ -60,23 +60,17 @@ jobs:
             cd docs/
             bundle install
             
-# --- Run Tests ---
+# --- Run Linters ---
 
       - run:
           name: validate markdown
           command: |
-            for f in $(find "$PWD" -not -path "*/node_modules/*" | grep '\S\.md$'); do ./node_modules/.bin/markdownlint "$f"; done
-            for f in $(find "$PWD" -not -path "*/node_modules/*" | grep '\S\.markdown$'); do ./node_modules/.bin/markdownlint "$f"; done
+            LINT_ERROR_COUNT=0 && for e in "markdown" "md"; do SUM=0 && echo "Searching for '*.$e' ..." && for f in $(find . -name "*.$e" -not -path './node_modules/*' -not -path './_sites/*'); do echo "Validating '$f' ..." && ./node_modules/.bin/markdownlint "$f" && : || SUM=$(( SUM + 1 )); done && if [ $SUM -gt 0 ]; then LINT_ERROR_COUNT=$(( LINT_ERROR_COUNT + SUM )); fi; done; if [ $LINT_ERROR_COUNT -gt 0 ]; then echo "There were $LINT_ERROR_COUNT errors!" && echo "ERROR: Exited with code 1" && (exit 1); else echo "Success!"; fi
 
       - run:
           name: validate liquid template
           command: |
-            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.htm$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
-            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.html'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
-            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.lqd$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
-            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.liquid$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
-            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.md$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
-            for f in $(find "$PWD" -not -path "*/node_modules/*" -not -path "*/_site/*" | grep '\S\.markdown$'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$f"; done
+            LINT_ERROR_COUNT=0 && for p in $(find ./docs -type d -not -path './docs/_site' -not -path './docs/_site/*'); do ./node_modules/.bin/liquid-linter --custom-tag "seo" "$p" && : || LINT_ERROR_COUNT=$(( LINT_ERROR_COUNT + 1 )); done && if [ $LINT_ERROR_COUNT -gt 0 ]; then echo "There were $LINT_ERROR_COUNT errors!" && echo "ERROR: Exited with code 1"; else echo "Success!"; fi
 
       - run:
           name: build static pages
@@ -100,6 +94,9 @@ jobs:
             eslint --env browser docs/
 
       # TODO - ADD to CI (?): accessibility checker [https://github.com/pa11y/pa11y-ci]
+
+# --- Run Tests ---
+
       # TODO - ADD to BUILD (!): coverage (as npm run script / as CI)
       # TODO - ADD to BUILD (?): css reset (as npm run script) [https://github.com/necolas/normalize.css]
       # TODO - ADD to BUILD (?): prettifier (as npm run script) [ ??? ]
