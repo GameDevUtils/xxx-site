@@ -2,8 +2,6 @@
 
 1. add config for `liquid-linter --custom-block foo --custom-tag bar`
 1. populate config.js for stylelint
-1. arialinter?
-1. tsbs/bootlint?
 1. markdown link in new window <https://stackoverflow.com/questions/3492153/markdown-open-a-new-window-link/29767900#29767900>
 1. <https://reactjs.org/docs/test-utils.html>
 

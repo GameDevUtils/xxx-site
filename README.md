@@ -10,13 +10,13 @@ The individual tools at [GameDevUtils.com](http://gamedevutils.com/) are built a
 1. Host announcements and blog posts in a single location.
 1. Use [Jekyll](https://jekyllrb.com/) to make generating a static site easier.
 1. Don't duplicate the infrastructure for documentation across apps.
-1. Provide a unified, filtereable search across all apps.
+1. Provide a unified, filterable search across all apps.
 1. To ultimately provide for versioning and localization of content.
 1. To ultimately provide for accessibility compliance.
 
 ## The Technology
 
-The `site/` project is written in vanilla HTML, CSS, JavaScript, [Liquid](https://github.com/Shopify/liquid/wiki/liquid-for-designers), and [GitHub-flavored markdown](https://help.github.com/categories/writing-on-github/). [Jekyll v3.6.x](https://jekyllrb.com/) is used to render the static pages, which are then hosted on [GitHub Pages](https://pages.github.com/). The design is based on the [Bootstrap v3.3.x](https://getbootstrap.com/docs/3.3/) and uses the [United theme](https://bootswatch.com/3/united/) from [Bootswatch v3.3.x](https://bootswatch.com/3/).
+The `site/` project is written in vanilla HTML, CSS, JavaScript, [Liquid](https://github.com/Shopify/liquid/wiki/liquid-for-designers), and [GitHub-flavored markdown](https://help.github.com/categories/writing-on-github/). [Jekyll v3.6.x](https://jekyllrb.com/) is used to render the static pages, which are then hosted on [GitHub Pages](https://pages.github.com/). ~~The design is based on the [Bootstrap v3.3.x](https://getbootstrap.com/docs/3.3/) and uses the [United theme](https://bootswatch.com/3/united/) from [Bootswatch v3.3.x](https://bootswatch.com/3/).~~
 
 For the most part, all of this should be transparent to you. You can just edit the markdown, push your changes, then revel and profit.
 
@@ -36,6 +36,8 @@ The following linters are planned:
 
 * **Valid Bootstrap:** TODO: [BootLint](https://github.com/twbs/bootlint)
 * **Accessibility:** TODO: [Pa11y](https://github.com/pa11y/pa11y-ci)
+
+**NOTE:** The CSS linting rules have not been specified yet. It's currently a no-op placeholder for CI.
 
 ## Continuous Integration
 
@@ -57,11 +59,7 @@ There are several tech stacks to choose from. Our CircleCI configuration is base
 * [Getting Started with Pre-Built CircleCI Docker Images](https://circleci.com/docs/2.0/circleci-images/)
 * [Base Docker Image (circleci/ruby:2.4.1-node)](https://hub.docker.com/r/circleci/ruby/tags/)
 
-The CircleCI configuration file is located in our project at `./.circleci/config.yml`. It's a good base image for [Jekyll](https://jekyllrb.com/).
-
-> **Behind the Scenes in `config.yml`:** Once the [bundler gem](http://bundler.io/) is installed (`gem install bundler`), and the gems that we have configured in the `Gemfile` are installed (`bundler install`), Ruby is ready.
->
-> The next several build steps install the [NodeJS](https://nodejs.org/) packages [via NPM](https://www.npmjs.com/) that we will use, as described in the `package.json` file.
+The CircleCI configuration file is located in our project at `./.circleci/config.yml`. Everything is driven by the n
 
 ### NPM Lint Scripts
 
@@ -75,6 +73,7 @@ The lint scripts assume that you have done the following:
 
 To focus on a particular issue, you can run the following individual lint scripts to view the errors for that component:
 
+* `npm run lint` - runs all of the configured linters in one command
 * `npm run lint-md` - validates the markdown for the project
 * `npm run lint-liquid` - validates the Liquid scripts for the project
 * `npm run lint-css` - validates the CSS for the project
