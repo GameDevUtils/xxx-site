@@ -1,0 +1,124 @@
+{% assign urlApps = "/apps/" %}
+{% assign urlDocs = "/docs/" %}
+{% assign pages = site.pages | sort: "path" %}
+{% for file in pages %}
+    {% assign x = file.path | split: "/" %}
+    {% assign l = x | last %}
+    {% assign f = x | first %}
+    {% assign s = x | size %}
+    {% if "index.md" == l and "apps" == f and s == 3 %}
+        {% assign urlApps = urlApps | append: "|/apps/" | append: x[1] | append: "/" %}
+    {% elsif "index.md" == l and "docs" == f and s == 3 %}
+        {% assign urlDocs = urlDocs | append: "|/docs/" | append: x[1] | append: "/" %}
+    {% endif %}
+{% endfor %}
+
+{% assign urlApps = urlApps | split: "|" %}
+{% assign urlDocs = urlDocs | split: "|" %}
+
+{% assign aboutPages = "/about.html;/docs/osslibs.html;/docs/license.html;/docs/contribute.html;/docs/team.html" | split: ";" %}
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container xx-fluid">
+  
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.brand }}</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class='{% if page.url == "/" or page.url == "/index.html" %}active{% endif %}'><a href="{{ site.baseurl }}/">Home</a></li>
+        <li class='{% if page.url == "/blog.html" %}active{% endif %}'><a href="{{ site.baseurl }}/blog.html">Blog</a></li>
+        <li>&nbsp;&nbsp;&nbsp;</li>
+        
+        {% assign urlParts = page.url | split: "/" %}
+        <li class='dropdown {% if urlParts[1] == "apps" %}active{% endif %}'>
+          <a href="{{ urlApps[0] }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Applications <span class="caret"></span></a>
+          <ul class="dropdown-menu gallery">
+            {% for url in urlApps %}
+                {% if forloop.first != true %}
+                    {% assign x = url | split: "/" %}
+                    <li class='{% if page.url == url %}active{% endif %}'><a href="{{ url }}">{{ x[2] | capitalize }} App</a></li>
+                {% endif %}
+            {% endfor %}
+            <!--
+            {% for file in site.pages %}
+                {% assign x = file.path | split: "/" %}
+                {% assign l = x | last %}
+                {% assign f = x | first %}
+                {% assign s = x | size %}
+                {% if "index.md" == l and "apps" == f and s == 3 %}
+                    {% assign url = "/apps/" | append: x[1] | append: "/" %}
+                    <li class='{% if page.url == url %}active{% endif %}'><a href="{{ url }}">{{ x[1] | capitalize }}</a></li>
+                {% endif %}
+            {% endfor %}
+            -->
+          </ul>
+        </li>
+
+      </ul>
+      
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        <li style="font-size:1.2em;"><a href="#" title="Visit us on Facebook!"><i class="fa fa-facebook-square"></i></a></li>
+        <li style="font-size:1.2em;"><a href="#" title="See what we're tweating!"><i class="fa fa-twitter-square"></i></a></li>
+        <li style="font-size:1.2em;"><a href="#" title="Stike a pose with us!"><i class="fa fa-instagram"></i></a></li>
+      </ul>
+      -->
+
+      <form class="navbar-form navbar-right">
+        <span class="input-group pull-right" style="width:200px;">
+          <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search">
+        </span>
+      </form>
+
+      <ul class="nav navbar-nav navbar-right">
+      
+        {% assign urlParts = page.url | split: "/" %}
+        <li class='dropdown {% if urlParts[1] == "docs" %}{% unless aboutPages contains page.url %}active{% endunless %}{% endif %}'>
+          <a href="{{ urlDocs[0] }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
+          <ul class="dropdown-menu gallery">
+            {% for url in urlDocs %}
+                {% if forloop.first != true %}
+                    {% assign x = url | split: "/" %}
+                    <li class='{% if page.url == url %}active{% endif %}'><a href="{{ url }}">{{ x[2] | capitalize }} App</a></li>
+                {% else %}
+                    <li class='{% if page.url == url %}active{% endif %}'><a href="{{ url }}">Overview</a></li>
+                {% endif %}
+                {% if forloop.last == true %}
+                    <li role="separator" class="divider"></li>
+                    <li class='{% if page.url == "/docs/roadmap.html" %}active{% endif %}'><a href="/docs/roadmap.html">Roadmap</a></li>
+                {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li class='dropdown {% if aboutPages contains page.url %}active{% endif %}'>
+          <a href="{{ urlDocs[0] }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
+          <ul class="dropdown-menu gallery">
+            <li class='{% if page.url == "/docs/license.html" %}active{% endif %}'><a href="/docs/license.html">License [MIT]</a></li>
+            <li class='{% if page.url == "/docs/osslibs.html" %}active{% endif %}'><a href="/docs/osslibs.html">OSS Modules</a></li>
+            <li role="separator" class="divider"></li>
+            <li class='{% if page.url == "/docs/team.html" %}active{% endif %}'><a href="/docs/team.html">The Team</a></li>
+            <li class='{% if page.url == "/docs/contribute.html" %}active{% endif %}'><a href="/docs/contribute.html">Contribute</a></li>
+          </ul>
+        </li>
+
+        <!-- <li class='{% if page.url == "/about.html" %}active{% endif %}'><a href="{{ site.baseurl }}/about.html">About</a></li> -->
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+    
+    <div class="clear"></div>
+    
+  </div><!-- /.container-fluid -->
+</nav>

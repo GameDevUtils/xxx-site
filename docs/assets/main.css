@@ -1,0 +1,16 @@
+body { padding-top: 70px; }
+
+ul.gallery li a i {
+    width:25px;
+    text-align:center;
+}
+
+img.scrollie {
+    width: 400px;
+    float: left;
+    margin: 10px;
+}
+
+div.clear {
+    clear: both;
+}

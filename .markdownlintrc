@@ -1,7 +1,12 @@
 {
+    // https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md
+
   "comment": "All rules",
   "default": true,
 
-  "MD013": false
-  //"MD034": false
+  "MD013": false, // allow lines > 80 characters
+  "MD033": false, // allow inline HTML
+  "MD040": false, // allow un-hinted code blocks
+
+  "IgnoreThis": "a bogus last line"
 }

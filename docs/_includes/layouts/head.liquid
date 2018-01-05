@@ -1,0 +1,150 @@
+<!-- Determine TITLE -->
+
+  {% assign siteTitle = site.title | default: "" %}
+  {% assign name = page.url | split: "/" %}
+  {% assign size = name.size %}
+
+  {% if page.title %}
+    {% assign title = page.title %}
+  {% elsif size > 0 and name.last %}
+    {% assign title = name.last | capitalize %}
+  {% elsif size > 1 and name[size-1] %}
+    {% assign title = name[size-1] | capitalize %}
+  {% endif %}
+
+  {% if title and siteTitle %}
+    {% assign title = siteTitle | append: " - " | append: title %}
+  {% elsif siteTitle %}
+    {% assign title = siteTitle %}
+  {% endif %}
+
+  <title>{{ title }}</title>
+
+<!-- jQuery 3.2.1 -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+      
+<!-- Bootstrap 3.3.7 Styles -->
+    
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+      crossorigin="anonymous">
+
+    {% assign swatches = site.bootswatch.theme | default: "slate|sha384-RpX8okQqCyUNG7PlOYNybyJXYTtGQH+7rIKiVvg1DLg6jahLEk47VvpUyS+E2/uJ" | split: "|" %}
+    {% assign splitCount = swatches | size %}
+
+    {% if swatches.first == "bootstrap-plain" %}
+    
+        <!-- Using Generic Bootstrap 3.3.7 CSS - No Theme Applied -->
+    
+    {% elsif swatches.first == "bootstrap-theme" %}
+    
+        <!-- Using Standard Bootstrap Theme 3.3.7 -->
+        
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+          crossorigin="anonymous">
+
+    {% elsif splitCount > 1 %}
+    
+        <!-- Bootswatch {{ swatches.first }} Theme 3.3.7 -->
+        
+        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/{{ swatches.first }}/bootstrap.min.css" rel="stylesheet" 
+          integrity="{{ swatches.last }}" 
+          crossorigin="anonymous">
+          
+    {% endif %}
+
+<!-- Bootstrap 3.3.7 JavaScript -->
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+      crossorigin="anonymous"></script>
+
+<!-- Font Awesome 4.7.0 -->
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+      rel="stylesheet" 
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" 
+      crossorigin="anonymous">
+
+
+
+
+
+
+<!-- ObjectFit Images 3.2.3 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.3/ofi.min.js"></script>
+
+<!-- Jarallax 1.9.2 -->
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/1.9.2/jarallax.min.js"></script>
+
+    <!-- Include it if you want to use Video parallax -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/1.9.2/jarallax-video.min.js"></script> -->
+    
+    <!-- Include it if you want to parallax any element -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/1.9.2/jarallax-element.min.js"></script> -->
+
+    <style type="text/css">
+        .jarallax {
+            position: relative;
+            z-index: 0;
+            
+            min-height: 512px;
+        }
+        .jarallax > .jarallax-img {
+            position: absolute;
+            object-fit: cover;
+            /* support for plugin https://github.com/bfred-it/object-fit-images */
+            font-family: 'object-fit: cover;';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            /* font-size: 20px; */
+            font-size: 1.3em;
+            margin: 0;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .jarallax h1 {
+            font-size: 3.0em;
+            line-height: 512px;
+            text-align: center;
+        }
+        
+    </style>
+
+<!-- FavIcon -->
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/assets/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ site.baseurl }}/assets/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl }}/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ site.baseurl }}/assets/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl }}/assets/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ site.baseurl }}/assets/images/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+<!-- Custom Styles -->
+
+    <link href="{{ site.baseurl }}/assets/main.css" rel="stylesheet" >

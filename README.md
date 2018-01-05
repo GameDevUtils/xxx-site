@@ -86,3 +86,10 @@ To focus on a particular issue, you can run the following individual lint script
 > 1. The CLI for each wasn't as [glob](https://www.npmjs.com/package/glob)-friendly as the other tools, so the lint scripts make multiple passes - for example, one pass for `*.md` files and one pass for `*.markdown` files. The only downside to that is that you'll have to fix the errors in your first set of files before you even see the errors in the next set of files.
 >
 > *I plan to merge the multiple lists of files so that the multi-pass evaluation isn't needed any more, but I have bigger fish to fry these days.*
+
+## [Braindump of TODO Items](#braindump-of-todo-items)
+
+1. add config for `liquid-linter --custom-block foo --custom-tag bar`
+1. populate config.js for stylelint
+1. [markdown link in a new window](https://stackoverflow.com/questions/3492153/markdown-open-a-new-window-link/29767900#29767900)
+1. [diagram of continuous execution](https://lh3.googleusercontent.com/-DIuf9uT_nZE/VkIK7WD_52I/AAAAAAAADi4/GUNUqAnoFOUIfdkvPXgofabXU-uoryX4QCL0BGAYYCw/h298/Continuous%2BExecution.jpg)
