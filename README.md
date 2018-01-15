@@ -1,5 +1,9 @@
 # Project: `site/`
 
+[![CircleCI](https://circleci.com/gh/GameDevUtils/site.svg?style=shield)](https://circleci.com/gh/GameDevUtils/site)
+
+Sheets: [![CircleCI](https://circleci.com/gh/GameDevUtils/sheets.svg?style=shield)](https://circleci.com/gh/GameDevUtils/sheets) | [![Maintainability](https://api.codeclimate.com/v1/badges/37211e3dc0c97a803e08/maintainability)](https://codeclimate.com/github/GameDevUtils/sheets/maintainability) | [![Test Coverage](https://api.codeclimate.com/v1/badges/37211e3dc0c97a803e08/test_coverage)](https://codeclimate.com/github/GameDevUtils/sheets/test_coverage)
+
 This project contains the landing page, navigation, documentation, blog, and standard look-and-feel for the apps in the [GameDevUtils.com](http://gamedevutils.com/) suite of tools.
 
 ## The Need
@@ -91,5 +95,4 @@ To focus on a particular issue, you can run the following individual lint script
 
 1. add config for `liquid-linter --custom-block foo --custom-tag bar`
 1. populate config.js for stylelint
-1. [markdown link in a new window](https://stackoverflow.com/questions/3492153/markdown-open-a-new-window-link/29767900#29767900)
 1. [diagram of continuous execution](https://lh3.googleusercontent.com/-DIuf9uT_nZE/VkIK7WD_52I/AAAAAAAADi4/GUNUqAnoFOUIfdkvPXgofabXU-uoryX4QCL0BGAYYCw/h298/Continuous%2BExecution.jpg)
