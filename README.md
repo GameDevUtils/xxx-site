@@ -1,10 +1,22 @@
 # Project: `site/`
 
+This project contains the landing page, navigation, documentation, blog, and standard look-and-feel for the apps in the [GameDevUtils.com](http://gamedevutils.com/) suite of tools.
+
+## Statuses
+
+Here's a quick overview of the status of the various parts of the project builds.
+
+### Site Project
+
 [![CircleCI](https://circleci.com/gh/GameDevUtils/site.svg?style=shield)](https://circleci.com/gh/GameDevUtils/site)
 
-Sheets: [![CircleCI](https://circleci.com/gh/GameDevUtils/sheets.svg?style=shield)](https://circleci.com/gh/GameDevUtils/sheets) | [![Maintainability](https://api.codeclimate.com/v1/badges/37211e3dc0c97a803e08/maintainability)](https://codeclimate.com/github/GameDevUtils/sheets/maintainability) | [![Test Coverage](https://api.codeclimate.com/v1/badges/37211e3dc0c97a803e08/test_coverage)](https://codeclimate.com/github/GameDevUtils/sheets/test_coverage)
+Includes a variety of linters and validators for the non-interactive parts of the site. 
 
-This project contains the landing page, navigation, documentation, blog, and standard look-and-feel for the apps in the [GameDevUtils.com](http://gamedevutils.com/) suite of tools.
+### Sheets Project
+
+[![CircleCI](https://circleci.com/gh/GameDevUtils/sheets.svg?style=shield)](https://circleci.com/gh/GameDevUtils/sheets) | [![Maintainability](https://api.codeclimate.com/v1/badges/37211e3dc0c97a803e08/maintainability)](https://codeclimate.com/github/GameDevUtils/sheets/maintainability) | [![Test Coverage](https://api.codeclimate.com/v1/badges/37211e3dc0c97a803e08/test_coverage)](https://codeclimate.com/github/GameDevUtils/sheets/test_coverage)
+
+Includes unit tests, code coverage tests, and static analysis.
 
 ## The Need
 
