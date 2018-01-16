@@ -10,7 +10,7 @@ Here's a quick overview of the status of the various parts of the project builds
 
 [![CircleCI](https://circleci.com/gh/GameDevUtils/site.svg?style=shield)](https://circleci.com/gh/GameDevUtils/site)
 
-Includes a variety of linters and validators for the non-interactive parts of the site. 
+Includes a variety of linters and validators for the non-interactive parts of the site.
 
 ### Sheets Project
 
